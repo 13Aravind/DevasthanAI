@@ -1,0 +1,35 @@
+# Use official Python image (choose 3.11 for compatibility)
+FROM python:3.11-slim
+
+# Install dependencies for Rust build and system utils
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rust toolchain for building pydantic-core
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Add Cargo bin to PATH
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements
+COPY backend/requirements.txt .
+
+# Upgrade pip and install Python deps
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install -r requirements.txt
+
+# Copy backend source code
+COPY backend/ .
+
+# Expose port your FastAPI app runs on (8000)
+EXPOSE 8000
+
+# Command to run the backend server (update if using uvicorn inside app folder)
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
