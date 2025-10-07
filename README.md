@@ -1,4 +1,4 @@
-# 🏛️ DevasthanAI - Digital Sanctuary
+# 🛕 DevasthanAI - Digital Sanctuary
 
 DevasthanAI is a comprehensive, AI-powered ecosystem designed for the complete management of large-scale pilgrimage sites like Somnath and Dwarka. It moves beyond simple crowd counting to become a "Digital Sanctuary" that ensures pilgrim safety, provides a serene spiritual experience, and empowers organizers with predictive, actionable intelligence.
 
