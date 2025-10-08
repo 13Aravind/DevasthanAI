@@ -7,6 +7,7 @@ from app.websocket import websocket_endpoint, manager
 from app.models import User
 from app.auth import get_password_hash
 import uvicorn
+import os # <-- Import the os module to read environment variables
 
 # Create FastAPI app
 app = FastAPI(
@@ -15,14 +16,27 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS
+# --- UPDATED CORS CONFIGURATION ---
+# Start with default origins for local development
+origins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
+
+# Get the deployed frontend URL from an environment variable
+frontend_url = os.getenv("FRONTEND_URL") 
+if frontend_url:
+    origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # Frontend URLs
+    allow_origins=origins,  # Use the dynamic list of origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# --- END OF UPDATED SECTION ---
+
 
 # Include routers
 app.include_router(auth.router)
@@ -72,7 +86,6 @@ def read_root():
 def get_prediction_data():
     """Get mocked prediction data"""
     import json
-    import os
     
     # Try to load from file, otherwise return mock data
     try:
