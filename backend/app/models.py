@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, Float
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, Float, PrimaryKeyConstraint
 from sqlalchemy.sql import func
 from app.database import Base
 
@@ -19,10 +19,13 @@ class User(Base):
 class CrowdData(Base):
     __tablename__ = "crowd_data"
     
-    id = Column(Integer, primary_key=True, index=True)
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
     location_id = Column(String(50), nullable=False)
     person_count = Column(Integer, nullable=False)
+    
+    __table_args__ = (
+        PrimaryKeyConstraint('timestamp', 'location_id'),
+    )
 
 
 class SOSAlert(Base):
@@ -46,3 +49,4 @@ class Ticket(Base):
     qr_code_hash = Column(String, unique=True, nullable=False)
     status = Column(String, default="booked")  # 'booked', 'checked_in', 'expired'
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
