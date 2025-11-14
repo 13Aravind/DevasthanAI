@@ -164,7 +164,7 @@ const LandingPage: React.FC = () => {
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={4} justifyContent="center" mb={8} width="100%" maxWidth={500}>
           <Button
             variant="outlined"
-            onClick={() => navigate('/admin/login')}
+            onClick={() => navigate('/admin/dashboard')}
             sx={{
               color: '#FFC966',
               borderColor: '#FFC966',
@@ -191,7 +191,7 @@ const LandingPage: React.FC = () => {
           </Button>
           <Button
             variant="contained"
-            onClick={() => navigate('/pilgrim/login')}
+            onClick={() => navigate('/pilgrim/dashboard')}
             sx={{
               bgcolor: '#FFC966',
               color: '#1a237e',
