@@ -191,7 +191,7 @@ const LandingPage: React.FC = () => {
           </Button>
           <Button
             variant="contained"
-            onClick={() => navigate('/pilgrim/dashboard')}
+            onClick={() => navigate('/pilgrim/home')}
             sx={{
               bgcolor: '#FFC966',
               color: '#1a237e',
